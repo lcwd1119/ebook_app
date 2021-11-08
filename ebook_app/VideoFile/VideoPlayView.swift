@@ -13,6 +13,12 @@ struct VideoPlayView: View {
     var body: some View {
         let avPlayer = AVPlayer(url:  Bundle.main.url(forResource: video.fileName, withExtension: video.fileType)!)
         VideoPlayer(player: avPlayer)
+            .onAppear(perform: {
+                SongView.player.pause()
+            })
+            .onDisappear(perform: {
+                avPlayer.pause()
+            })
             .navigationTitle(video.videoName)
     }
     

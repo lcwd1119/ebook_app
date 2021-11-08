@@ -14,19 +14,19 @@ struct RandomPageView: View {
         NavigationView{
             List{
                 Button {
-                    randomplay(Singerselect: 2)
+                    randomplay(Songselect: Song.allsongs.randomElement()!.randomElement()!)
                 } label: {
                     Text("全部")
                         .font(.title)
                 }
                 Button {
-                    randomplay(Singerselect: 1)
+                    randomplay(Songselect: Song.ClariS_songs.randomElement()!)
                 } label: {
                     Text("ClariS")
                         .font(.title)
                 }
                 Button {
-                    randomplay(Singerselect: 0)
+                    randomplay(Songselect: Song.Aimer_songs.randomElement()!)
                 } label: {
                     Text("Aimer")
                         .font(.title)
@@ -40,17 +40,9 @@ struct RandomPageView: View {
         }
     }
 }
-func randomplay(Singerselect:Int){
-    var tmp = Singerselect
-    if Singerselect == 2 {
-        tmp = Int.random(in: 0...1)
-    }
+func randomplay(Songselect:Song){
     
-    let songlist:[Song] = Song.allsongs[tmp]
-    
-    let item:Song = songlist[Int.random(in: 0...songlist.count-1)]
-    
-    let fileUrl = Bundle.main.url(forResource: item.fileName, withExtension: item.fileType)!
+    let fileUrl = Bundle.main.url(forResource: Songselect.fileName, withExtension: Songselect.fileType)!
     let playerItem = AVPlayerItem(url: fileUrl)
     SongView.player.replaceCurrentItem(with: playerItem)
     SongView.player.play()
